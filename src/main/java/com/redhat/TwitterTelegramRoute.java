@@ -12,8 +12,8 @@ public class TwitterTelegramRoute extends RouteBuilder {
     String twitterApiKey;
 
     @ConfigProperty(name = "twitter.secret")
-    String twitterSecret;    
-    
+    String twitterSecret;
+
     @ConfigProperty(name = "twitter.accesstoken")
     String twitterAccessToken;
 
@@ -28,28 +28,30 @@ public class TwitterTelegramRoute extends RouteBuilder {
 
     String searchTerm = "#Openshift";
     String delay = "10000";
-    int count = 1;
+    int count = 10;
 
     @Override
     public void configure() throws Exception {
 
-      setTwitterConfig();
+        setTwitterConfig();
+
+        rest("/").get().route()
+            .log("Got Rest Request")
+                .endRest();
 
         fromF("twitter-search://%s?delay=%s&repeatCount=1&count=%s", searchTerm, delay, count)
-            .log(LoggingLevel.INFO, "Twitter Search Result: ${body}")
-            .process(new TweetInfoProcessor())
-            .to("telegram:bots?authorizationToken=" + telegramToken + "&chatId=" + telegramChatId);
+                .log(LoggingLevel.INFO, "Twitter Search Result: ${body}")
+                //.process(new TweetInfoProcessor())
+                .to("telegram:bots?authorizationToken=" + telegramToken + "&chatId=" + telegramChatId);
     }
 
-
-
-    private void setTwitterConfig(){
+    private void setTwitterConfig() {
         // setup Twitter component
         TwitterSearchComponent tc = getContext().getComponent("twitter-search", TwitterSearchComponent.class);
         tc.setAccessToken(twitterAccessToken);
         tc.setAccessTokenSecret(twitterAccessTokenSecret);
         tc.setConsumerKey(twitterApiKey);
-        tc.setConsumerSecret(twitterSecret);  
+        tc.setConsumerSecret(twitterSecret);
     }
 
 }

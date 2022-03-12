@@ -21,7 +21,6 @@ public class TweetInfo {
 		this.username = username;
 		this.language = language;
 		this.location = location;
-		this.favouriteCount = favouriteCount;
 		this.creationDate = creationDate;
 	}
 
@@ -83,7 +82,7 @@ public class TweetInfo {
 
 	@Override
 	public String toString() {
-		return "TweetEntity [tweetId=" + tweetId + ", text=" + text + ", username=" + username + ", language="
+		return "TweetInfo [tweetId=" + tweetId + ", text=" + text + ", username=" + username + ", language="
 				+ language + ", location=" + location + ", favouriteCount=" + favouriteCount + ", creationDate="
 				+ creationDate + "]";
 	}

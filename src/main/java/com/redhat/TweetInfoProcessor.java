@@ -12,21 +12,21 @@ public class TweetInfoProcessor implements Processor {
 	public void process(Exchange exchange) throws Exception {
 		Status bodyIn = (Status) exchange.getIn().getBody();
 		
-		TweetInfo tweetEntity = new TweetInfo();
+		TweetInfo tweetInfo = new TweetInfo();
 		
-		tweetEntity.setTweetId(bodyIn.getId());
-		tweetEntity.setText(bodyIn.getText());
+		tweetInfo.setTweetId(bodyIn.getId());
+		tweetInfo.setText(bodyIn.getText());
 		
 		if (bodyIn.getUser() != null) {
-			tweetEntity.setUsername(bodyIn.getUser().getName());
-			tweetEntity.setLanguage(bodyIn.getUser().getLang());
-			tweetEntity.setLocation(bodyIn.getUser().getLocation());
+			tweetInfo.setUsername(bodyIn.getUser().getName());
+			tweetInfo.setLanguage(bodyIn.getUser().getLang());
+			tweetInfo.setLocation(bodyIn.getUser().getLocation());
 		}
 
-		tweetEntity.setFavouriteCount(bodyIn.getFavoriteCount());
-		tweetEntity.setCreationDate(bodyIn.getCreatedAt());
+		tweetInfo.setFavouriteCount(bodyIn.getFavoriteCount());
+		tweetInfo.setCreationDate(bodyIn.getCreatedAt());
 		
-		exchange.getIn().setBody(tweetEntity);
+		exchange.getIn().setBody(tweetInfo);
 	}
 
 }
