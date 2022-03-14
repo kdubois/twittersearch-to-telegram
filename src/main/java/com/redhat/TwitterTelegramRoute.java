@@ -8,6 +8,29 @@ import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 @ApplicationScoped
 public class TwitterTelegramRoute extends RouteBuilder {
+
+
+    String searchTerm = "#Camel #Quarkus";
+    int count = 1;
+
+    @Override
+    public void configure() throws Exception {
+
+        setTwitterConfig();
+
+        fromF("twitter-search://%s?repeatCount=1&count=%s", searchTerm, count)
+                .log(LoggingLevel.INFO, "Twitter Search Result: ${body}")
+                //.process(new TweetInfoProcessor())
+                .to("telegram:bots?authorizationToken=" + telegramToken + "&chatId=" + telegramChatId);
+    }
+
+
+
+
+
+
+
+
     @ConfigProperty(name = "twitter.apikey")
     String twitterApiKey;
 
@@ -25,25 +48,6 @@ public class TwitterTelegramRoute extends RouteBuilder {
 
     @ConfigProperty(name = "telegram.chatid")
     String telegramChatId;
-
-    String searchTerm = "#Openshift";
-    String delay = "10000";
-    int count = 10;
-
-    @Override
-    public void configure() throws Exception {
-
-        setTwitterConfig();
-
-        rest("/").get().route()
-            .log("Got Rest Request")
-                .endRest();
-
-        fromF("twitter-search://%s?delay=%s&repeatCount=1&count=%s", searchTerm, delay, count)
-                .log(LoggingLevel.INFO, "Twitter Search Result: ${body}")
-                //.process(new TweetInfoProcessor())
-                .to("telegram:bots?authorizationToken=" + telegramToken + "&chatId=" + telegramChatId);
-    }
 
     private void setTwitterConfig() {
         // setup Twitter component
