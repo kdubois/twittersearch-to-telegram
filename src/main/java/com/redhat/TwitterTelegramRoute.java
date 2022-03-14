@@ -9,8 +9,9 @@ import org.eclipse.microprofile.config.inject.ConfigProperty;
 @ApplicationScoped
 public class TwitterTelegramRoute extends RouteBuilder {
 
+    @ConfigProperty(name="searchterm", defaultValue = "#Camel #Quarkus")
+    String searchTerm;
 
-    String searchTerm = "#Camel #Quarkus";
     int count = 1;
 
     @Override
