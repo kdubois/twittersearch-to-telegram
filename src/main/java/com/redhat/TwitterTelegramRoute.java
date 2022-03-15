@@ -1,7 +1,5 @@
 package com.redhat;
 
-import java.util.logging.Logger;
-
 import javax.enterprise.context.ApplicationScoped;
 import org.apache.camel.LoggingLevel;
 import org.apache.camel.builder.RouteBuilder;
@@ -23,7 +21,7 @@ public class TwitterTelegramRoute extends RouteBuilder {
                
         fromF("twitter-search://%s?repeatCount=1&count=%s", searchTerm, count)
                 .log(LoggingLevel.INFO, "Twitter Search Result: ${body}")
-                .process(new TweetInfoProcessor())
+                //.process(new TweetInfoProcessor())
                 .to("telegram:bots?authorizationToken=" + telegramToken + "&chatId=" + telegramChatId);
     }
 
