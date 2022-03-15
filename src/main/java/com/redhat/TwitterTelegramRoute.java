@@ -1,5 +1,7 @@
 package com.redhat;
 
+import java.util.logging.Logger;
+
 import javax.enterprise.context.ApplicationScoped;
 import org.apache.camel.LoggingLevel;
 import org.apache.camel.builder.RouteBuilder;
@@ -9,7 +11,7 @@ import org.eclipse.microprofile.config.inject.ConfigProperty;
 @ApplicationScoped
 public class TwitterTelegramRoute extends RouteBuilder {
 
-    @ConfigProperty(name="searchterm", defaultValue = "#Camel #Quarkus")
+    @ConfigProperty(name="searchterm", defaultValue = "#CamelQuarkus")
     String searchTerm;
 
     int count = 1;
@@ -18,10 +20,10 @@ public class TwitterTelegramRoute extends RouteBuilder {
     public void configure() throws Exception {
 
         setTwitterConfig();
-
+               
         fromF("twitter-search://%s?repeatCount=1&count=%s", searchTerm, count)
                 .log(LoggingLevel.INFO, "Twitter Search Result: ${body}")
-                //.process(new TweetInfoProcessor())
+                .process(new TweetInfoProcessor())
                 .to("telegram:bots?authorizationToken=" + telegramToken + "&chatId=" + telegramChatId);
     }
 
