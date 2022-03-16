@@ -9,7 +9,7 @@ import org.eclipse.microprofile.config.inject.ConfigProperty;
 @ApplicationScoped
 public class TwitterTelegramRoute extends RouteBuilder {
 
-    @ConfigProperty(name="searchterm", defaultValue = "#Camel #Quarkus")
+    @ConfigProperty(name="searchterm", defaultValue = "#CamelQuarkus")
     String searchTerm;
 
     int count = 2;
@@ -18,7 +18,9 @@ public class TwitterTelegramRoute extends RouteBuilder {
     public void configure() throws Exception {
 
         setTwitterConfig();
+
         rest().get().route().log("got rest request");
+
 
         fromF("twitter-search://%s?repeatCount=1&count=%s", searchTerm, count)
                 .log(LoggingLevel.INFO, "Twitter Search Result: ${body}")
