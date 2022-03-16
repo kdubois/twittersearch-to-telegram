@@ -12,12 +12,13 @@ public class TwitterTelegramRoute extends RouteBuilder {
     @ConfigProperty(name="searchterm", defaultValue = "#Camel #Quarkus")
     String searchTerm;
 
-    int count = 1;
+    int count = 2;
 
     @Override
     public void configure() throws Exception {
 
         setTwitterConfig();
+        rest().get().route().log("got rest request");
 
         fromF("twitter-search://%s?repeatCount=1&count=%s", searchTerm, count)
                 .log(LoggingLevel.INFO, "Twitter Search Result: ${body}")

@@ -1,9 +1,8 @@
 package com.redhat;
+
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
-
 import com.redhat.model.TweetInfo;
-
 import twitter4j.Status;
 
 public class TweetInfoProcessor implements Processor {
@@ -26,7 +25,8 @@ public class TweetInfoProcessor implements Processor {
 		tweetInfo.setFavouriteCount(bodyIn.getFavoriteCount());
 		tweetInfo.setCreationDate(bodyIn.getCreatedAt());
 		
-		exchange.getIn().setBody(tweetInfo);
+		exchange.getIn().setBody("Received the following tweet from " 
+			+ tweetInfo.getUsername() + " : " + tweetInfo.getText());
 	}
 
 }
