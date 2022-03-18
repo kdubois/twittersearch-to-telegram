@@ -25,8 +25,7 @@ public class TweetInfoProcessor implements Processor {
 		tweetInfo.setFavouriteCount(bodyIn.getFavoriteCount());
 		tweetInfo.setCreationDate(bodyIn.getCreatedAt());
 		
-		exchange.getIn().setBody("Received the following tweet from " 
-			+ tweetInfo.getUsername() + " : " + tweetInfo.getText());
+		exchange.getIn().setBody(tweetInfo.getUsername() + " Sent the following tweet: " + tweetInfo.getText());
 	}
 
 }

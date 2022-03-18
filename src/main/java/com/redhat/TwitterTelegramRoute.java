@@ -9,7 +9,7 @@ import org.eclipse.microprofile.config.inject.ConfigProperty;
 @ApplicationScoped
 public class TwitterTelegramRoute extends RouteBuilder {
 
-    @ConfigProperty(name="searchterm", defaultValue = "#CamelQuarkus")
+    @ConfigProperty(name="searchterm", defaultValue = "@kevindubois")
     String searchTerm;
 
     int count = 2;
@@ -24,7 +24,7 @@ public class TwitterTelegramRoute extends RouteBuilder {
 
         fromF("twitter-search://%s?repeatCount=1&count=%s", searchTerm, count)
                 .log(LoggingLevel.INFO, "Twitter Search Result: ${body}")
-                //.process(new TweetInfoProcessor())
+                .process(new TweetInfoProcessor())
                 .to("telegram:bots?authorizationToken=" + telegramToken + "&chatId=" + telegramChatId);
     }
 
