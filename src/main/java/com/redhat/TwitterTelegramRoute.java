@@ -19,9 +19,6 @@ public class TwitterTelegramRoute extends RouteBuilder {
 
         setTwitterConfig();
 
-        rest().get().route().log("got rest request");
-
-
         fromF("twitter-search://%s?repeatCount=1&count=%s", searchTerm, count)
                 .log(LoggingLevel.INFO, "Twitter Search Result: ${body}")
                 .process(new TweetInfoProcessor())
