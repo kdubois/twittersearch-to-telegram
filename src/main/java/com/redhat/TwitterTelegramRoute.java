@@ -12,22 +12,18 @@ public class TwitterTelegramRoute extends RouteBuilder {
     @ConfigProperty(name="searchterm", defaultValue = "@kevindubois")
     String searchTerm;
 
-    int count = 2;
+    int count = 4;
 
     @Override
     public void configure() throws Exception {
 
         setTwitterConfig();
 
-        fromF("twitter-search://%s?repeatCount=1&count=%s", searchTerm, count)
+        fromF("twitter-search://%s?", searchTerm, count)
                 .log(LoggingLevel.INFO, "Twitter Search Result: ${body}")
                 .process(new TweetInfoProcessor())
                 .to("telegram:bots?authorizationToken=" + telegramToken + "&chatId=" + telegramChatId);
     }
-
-
-
-
 
 
 
