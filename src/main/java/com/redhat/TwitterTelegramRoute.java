@@ -25,9 +25,7 @@ public class TwitterTelegramRoute extends RouteBuilder {
                 .to("telegram:bots?authorizationToken=" + telegramToken + "&chatId=" + telegramChatId);
     }
 
-
-
-
+    
     @ConfigProperty(name = "twitter.apikey")
     String twitterApiKey;
 
