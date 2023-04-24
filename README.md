@@ -1,5 +1,7 @@
 # Demo: Send Tweets to Telegram using Camel Quarkus 
 
+### NOTE: Due to changes to the Twitter API access (v2) I am not able to test if this works anymore as I don't want to shell out $100/month to Twitter for basic read access.  
+
 This is a really simple example of how you can use Camel Quarkus to integrate between Twitter and Telegram, but the source or destination can easily be swapped out for something else thanks to Camel's big collection of out-of-the-box components.
 
 This demo was featured on the Openshift Coffee Break episode on March 16 2022: https://www.youtube.com/watch?v=aaEV19c6GhQ
